@@ -1,0 +1,348 @@
+:root {
+  --bg: #07080d;
+  --ink: #f4f1ea;
+  --muted: #9aa3b5;
+  --accent: #7cf0d2;
+  --accent-2: #8aa4ff;
+  --accent-3: #f2c57c;
+  --glow: 0 0 48px rgba(124, 240, 210, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: Outfit, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 50% 115%, rgba(138, 164, 255, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 50% -10%, rgba(124, 240, 210, 0.08), transparent 55%);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 72%);
+  opacity: 0.5;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: drift 14s ease-in-out infinite;
+}
+
+.orb-a {
+  width: 42vw;
+  height: 42vw;
+  left: -8%;
+  top: 18%;
+  background: rgba(124, 240, 210, 0.18);
+}
+
+.orb-b {
+  width: 36vw;
+  height: 36vw;
+  right: -6%;
+  top: 8%;
+  background: rgba(138, 164, 255, 0.2);
+  animation-delay: -5s;
+}
+
+.orb-c {
+  width: 28vw;
+  height: 28vw;
+  left: 36%;
+  bottom: -12%;
+  background: rgba(242, 197, 124, 0.12);
+  animation-delay: -9s;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  padding: 32px 24px 48px;
+  text-align: center;
+}
+
+.kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--muted);
+  animation: fadeRise 1.2s ease both;
+}
+
+.title {
+  position: relative;
+  font-family: Syne, Outfit, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 9vw, 7.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  isolation: isolate;
+}
+
+.title-glow,
+.title-text .word {
+  display: block;
+}
+
+.title-glow {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: blur(18px);
+  opacity: 0.55;
+  animation: sheen 5.5s linear infinite;
+}
+
+.title-text {
+  position: relative;
+}
+
+.word {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    #edf4ff 0%,
+    var(--accent) 25%,
+    #ffffff 50%,
+    var(--accent-2) 75%,
+    #edf4ff 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: sheen 5.5s linear infinite, pulse 4.8s ease-in-out infinite;
+}
+
+.word::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.9) 48%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  mix-blend-mode: screen;
+  animation: sweep 3.6s ease-in-out infinite;
+}
+
+.scan {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  height: 2px;
+  top: 108%;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+  opacity: 0.7;
+  filter: drop-shadow(var(--glow));
+  animation: scan 3.6s ease-in-out infinite;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(420px, 72vw);
+  animation: fadeRise 1.2s ease 0.15s both;
+}
+
+.rule-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+}
+
+.rule-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: var(--glow);
+  animation: blink 2.4s ease-in-out infinite;
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  animation: fadeRise 1.2s ease 0.28s both;
+}
+
+.source:hover,
+.source:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(124, 240, 210, 0.55);
+  background: rgba(124, 240, 210, 0.08);
+  outline: none;
+}
+
+.source-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.source-url {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.source-arrow {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+@keyframes sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 220% 50%;
+  }
+}
+
+@keyframes sweep {
+  0%,
+  18% {
+    background-position: 120% 50%;
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    background-position: -40% 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0%,
+  18% {
+    transform: scaleX(0.15);
+    opacity: 0;
+  }
+  42% {
+    transform: scaleX(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    transform: scale(1.015);
+    filter: drop-shadow(0 10px 28px rgba(124, 240, 210, 0.18));
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -6%, 0) scale(1.08);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .title-glow,
+  .word,
+  .word::after,
+  .scan,
+  .rule-dot,
+  .kicker,
+  .rule,
+  .source {
+    animation: none;
+  }
+
+  .word {
+    color: var(--ink);
+    background: none;
+  }
+}
